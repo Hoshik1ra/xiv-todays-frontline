@@ -1,0 +1,8 @@
+node_modules
+dist
+.pnpm-store
+.vite-dev*.log
+debug-page.png
+huiji-debug.png
+*.local
+.DS_Store

@@ -1,0 +1,29 @@
+{
+  "name": "xiv-todays-frontline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.22.0",
+  "description": "A GitHub Pages static app that shows today's FFXIV Frontline campaign.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsmc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsmc --noEmit"
+  },
+  "dependencies": {
+    "@mdui/icons": "^1.0.3",
+    "dayjs": "^1.11.13",
+    "mdui": "^2.1.4",
+    "vue": "3.6.0-beta.8",
+    "vue-i18n": "^11.1.12"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.17",
+    "@ts-macro/tsc": "^0.3.7",
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4",
+    "vue-jsx-vapor": "^3.2.11"
+  }
+}
