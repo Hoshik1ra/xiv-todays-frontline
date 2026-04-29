@@ -1,6 +1,6 @@
 # XIV Today Frontline
 
-A Vite + TypeScript static app for GitHub Pages that shows today's Final Fantasy XIV Frontline campaign.
+A Vite + TypeScript static app for GitHub Pages that shows today's Final Fantasy XIV Frontline Frontline map rotation.
 
 Target GitHub Pages URL:
 
