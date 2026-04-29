@@ -4,7 +4,7 @@ A Vite + TypeScript static app for GitHub Pages that shows today's Final Fantasy
 
 Target GitHub Pages URL:
 
-https://Hoshik1ra.github.io/xiv-today-frontline/
+https://Hoshik1ra.github.io/xiv-todays-frontline/
 
 ## Stack
 
