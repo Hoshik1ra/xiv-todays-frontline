@@ -1,4 +1,4 @@
-import { defineVaporComponent } from 'vue';
+import { defineVaporComponent } from "vue";
 
 export const CampaignCrystal = defineVaporComponent(() => (
   <div class="campaign-crystal" aria-hidden="true">

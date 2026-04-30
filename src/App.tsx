@@ -1,10 +1,10 @@
-import { computed, defineComponent, onMounted, onUnmounted, ref, watchEffect } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { CampaignCrystal } from './components/CampaignCrystal';
-import { getRotationWindow, getUpcomingRotation, rotation } from './frontline';
-import { localeOptions, type LocaleCode } from './i18n';
+import { computed, defineComponent, onMounted, onUnmounted, ref, watchEffect } from "vue";
+import { useI18n } from "vue-i18n";
+import { CampaignCrystal } from "./components/CampaignCrystal";
+import { getRotationWindow, getUpcomingRotation, rotation } from "./frontline";
+import { localeOptions, type LocaleCode } from "./i18n";
 
-const localeStorageKey = 'xiv-todays-frontline-locale';
+const localeStorageKey = "xiv-todays-frontline-locale";
 
 function isLocaleCode(value: string | null): value is LocaleCode {
   return localeOptions.some((option) => option.code === value);
@@ -12,22 +12,22 @@ function isLocaleCode(value: string | null): value is LocaleCode {
 
 function formatTime(date: Date, locale: string): string {
   return new Intl.DateTimeFormat(locale, {
-    dateStyle: 'medium',
-    timeStyle: 'short',
+    dateStyle: "medium",
+    timeStyle: "short",
   }).format(date);
 }
 
 function getLocalResetDisplay(date: Date, locale: string): { time: string; zone: string } {
   const time = new Intl.DateTimeFormat(locale, {
-    hour: '2-digit',
-    minute: '2-digit',
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: false,
   }).format(date);
   const timeZoneLabel = getLocalTimeZoneLabel(date);
 
   return {
     time,
-    zone: locale === 'zh-CN' ? timeZoneLabel.zh : timeZoneLabel.en,
+    zone: locale === "zh-CN" ? timeZoneLabel.zh : timeZoneLabel.en,
   };
 }
 
@@ -36,23 +36,23 @@ function getLocalTimeZoneLabel(date: Date): { zh: string; en: string } {
   const offsetLabel = getUtcOffsetLabel(date);
   const shortName = getShortTimeZoneName(date);
 
-  if (timeZone === 'UTC' || shortName === 'UTC' || shortName === 'GMT') {
-    return { zh: 'UTC', en: 'UTC' };
+  if (timeZone === "UTC" || shortName === "UTC" || shortName === "GMT") {
+    return { zh: "UTC", en: "UTC" };
   }
 
-  if (timeZone === 'Asia/Shanghai' || timeZone === 'Asia/Chongqing' || timeZone === 'Asia/Urumqi') {
-    return { zh: '北京时间', en: offsetLabel };
+  if (timeZone === "Asia/Shanghai" || timeZone === "Asia/Chongqing" || timeZone === "Asia/Urumqi") {
+    return { zh: "北京时间", en: offsetLabel };
   }
 
-  if (timeZone === 'Asia/Tokyo') {
-    return { zh: '日本时间', en: 'JST' };
+  if (timeZone === "Asia/Tokyo") {
+    return { zh: "日本时间", en: "JST" };
   }
 
-  if (timeZone === 'America/Los_Angeles') {
-    const isDaylight = shortName === 'PDT';
+  if (timeZone === "America/Los_Angeles") {
+    const isDaylight = shortName === "PDT";
 
     return {
-      zh: isDaylight ? '美西夏令时' : '美西冬令时',
+      zh: isDaylight ? "美西夏令时" : "美西冬令时",
       en: shortName,
     };
   }
@@ -61,20 +61,20 @@ function getLocalTimeZoneLabel(date: Date): { zh: string; en: string } {
 }
 
 function getShortTimeZoneName(date: Date): string {
-  const part = new Intl.DateTimeFormat('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZoneName: 'short',
+  const part = new Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZoneName: "short",
   })
     .formatToParts(date)
-    .find((item) => item.type === 'timeZoneName');
+    .find((item) => item.type === "timeZoneName");
 
-  return part?.value ?? '';
+  return part?.value ?? "";
 }
 
 function getUtcOffsetLabel(date: Date): string {
   const offsetMinutes = -date.getTimezoneOffset();
-  const sign = offsetMinutes >= 0 ? '+' : '-';
+  const sign = offsetMinutes >= 0 ? "+" : "-";
   const absoluteMinutes = Math.abs(offsetMinutes);
   const hours = Math.floor(absoluteMinutes / 60);
   const minutes = absoluteMinutes % 60;
@@ -83,14 +83,17 @@ function getUtcOffsetLabel(date: Date): string {
     return `UTC${sign}${hours}`;
   }
 
-  return `UTC${sign}${hours}:${String(minutes).padStart(2, '0')}`;
+  return `UTC${sign}${hours}:${String(minutes).padStart(2, "0")}`;
 }
 
 function assetUrl(path: string): string {
   return `${import.meta.env.BASE_URL}${path}`;
 }
 
-function getTimeLeftParts(target: Date, now: Date): { hours: number; minutes: number; seconds: number } {
+function getTimeLeftParts(
+  target: Date,
+  now: Date,
+): { hours: number; minutes: number; seconds: number } {
   const remainingMs = Math.max(0, target.getTime() - now.getTime());
   const totalSeconds = Math.ceil(remainingMs / 1_000);
 
@@ -111,7 +114,9 @@ export default defineComponent(() => {
   const currentCampaignKey = computed(() => current.value.campaign.key);
   const currentImage = computed(() => assetUrl(current.value.campaign.image));
   const timeLeft = computed(() => getTimeLeftParts(current.value.nextReset.toDate(), now.value));
-  const nextResetDisplay = computed(() => getLocalResetDisplay(current.value.nextReset.toDate(), locale.value));
+  const nextResetDisplay = computed(() =>
+    getLocalResetDisplay(current.value.nextReset.toDate(), locale.value),
+  );
   const setLocale = (nextLocale: LocaleCode) => {
     locale.value = nextLocale;
     localStorage.setItem(localeStorageKey, nextLocale);
@@ -138,7 +143,7 @@ export default defineComponent(() => {
 
   watchEffect(() => {
     document.documentElement.lang = locale.value;
-    document.title = t('app.documentTitle');
+    document.title = t("app.documentTitle");
   });
 
   return () => (
@@ -147,20 +152,16 @@ export default defineComponent(() => {
         <div class="game-window mx-auto w-full max-w-5xl">
           <header class="game-titlebar">
             <div class="min-w-0">
-              <h1>{t('app.title')}</h1>
+              <h1>{t("app.title")}</h1>
             </div>
             <div class="title-actions">
               <div class="language-control">
-                <mdui-dropdown
-                  class="language-dropdown"
-                  trigger="click"
-                  placement="bottom-end"
-                >
+                <mdui-dropdown class="language-dropdown" trigger="click" placement="bottom-end">
                   <mdui-button-icon
                     class="language-trigger"
                     variant="standard"
                     slot="trigger"
-                    aria-label={t('app.language')}
+                    aria-label={t("app.language")}
                   >
                     <mdui-icon-translate></mdui-icon-translate>
                   </mdui-button-icon>
@@ -175,8 +176,8 @@ export default defineComponent(() => {
                           <span
                             class={
                               locale.value === option.code
-                                ? 'language-check language-check-visible'
-                                : 'language-check'
+                                ? "language-check language-check-visible"
+                                : "language-check"
                             }
                           >
                             ✓
@@ -187,7 +188,7 @@ export default defineComponent(() => {
                     ))}
                   </mdui-menu>
                 </mdui-dropdown>
-                <span class="language-hint">{t('app.language')}</span>
+                <span class="language-hint">{t("app.language")}</span>
               </div>
             </div>
           </header>
@@ -207,39 +208,45 @@ export default defineComponent(() => {
 
               <div class="quick-info">
                 <div class="countdown-box">
-                  <span>{t('app.countdown')}</span>
-                  <strong>{t('app.timeLeft', timeLeft.value)}</strong>
+                  <span>{t("app.countdown")}</span>
+                  <strong>{t("app.timeLeft", timeLeft.value)}</strong>
                 </div>
               </div>
 
               <div class="tip-box">
-                <span>{t('app.tipTitle')}</span>
+                <span>{t("app.tipTitle")}</span>
                 <div class="tip-lines">
                   <p>
-                    {t('app.resetAtLocal', {
+                    {t("app.resetAtLocal", {
                       time: nextResetDisplay.value.time,
                       zone: nextResetDisplay.value.zone,
                     })}
                   </p>
-                  <p>{t('app.localCalculation')}</p>
+                  <p>{t("app.localCalculation")}</p>
                 </div>
               </div>
             </section>
 
             <aside class="side-panels">
               <section class="system-panel schedule-panel">
-                <h3>{t('app.schedule')}</h3>
+                <h3>{t("app.schedule")}</h3>
                 <div class="schedule-list">
                   {upcoming.value.map((item, offset) => (
                     <article
-                      class={offset === 0 ? 'schedule-row schedule-row-active' : 'schedule-row'}
+                      class={offset === 0 ? "schedule-row schedule-row-active" : "schedule-row"}
                     >
-                      <img class="schedule-icon" src={assetUrl('campaigns/frontline-swords.png')} alt="" />
+                      <img
+                        class="schedule-icon"
+                        src={assetUrl("campaigns/frontline-swords.png")}
+                        alt=""
+                      />
                       <div class="min-w-0 flex-1">
                         <p class="truncate text-sm font-bold text-[#f7ead1]">
                           {t(`campaigns.${item.campaign.key}.fullName`)}
                         </p>
-                        <p class="truncate text-xs text-[#bdb7ac]">{formatWindowTime(item.windowStart.toDate())}</p>
+                        <p class="truncate text-xs text-[#bdb7ac]">
+                          {formatWindowTime(item.windowStart.toDate())}
+                        </p>
                       </div>
                     </article>
                   ))}
