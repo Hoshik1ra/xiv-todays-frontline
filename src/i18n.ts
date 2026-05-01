@@ -30,6 +30,12 @@ export const messages = {
         fullName: "周边遗迹群（阵地战）",
       },
     },
+    legal: {
+      label: "版权信息",
+      line1: "最终幻想XIV 及相关游戏资料、图片、地图名称等版权内容为 SQUARE ENIX CO., LTD. 所有。",
+      line2: "本站内容仅用于提供纷争前线每日轮换信息参考。",
+      copyright: "Copyright (C) 2010 - 2026 SQUARE ENIX CO., LTD. All Rights Reserved.",
+    },
   },
   "en-US": {
     app: {
@@ -59,6 +65,13 @@ export const messages = {
       borderlandRuins: {
         fullName: "The Borderland Ruins (Secure)",
       },
+    },
+    legal: {
+      label: "Copyright information",
+      line1:
+        "FINAL FANTASY XIV and related game data, images, map names, and assets are owned by SQUARE ENIX CO., LTD.",
+      line2: "This site only provides daily Frontline rotation information for reference.",
+      copyright: "Copyright (C) 2010 - 2026 SQUARE ENIX CO., LTD. All Rights Reserved.",
     },
   },
 } as const;
