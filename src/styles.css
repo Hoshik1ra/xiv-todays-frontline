@@ -44,6 +44,21 @@ mdui-menu-item {
   align-items: center;
 }
 
+.site-footer {
+  display: block;
+  margin-top: 0.7rem;
+  padding: 0 0.65rem;
+  color: rgba(230, 231, 225, 0.72);
+  font-size: 0.68rem;
+  line-height: 1.5;
+  text-align: left;
+  text-shadow: 0 1px 1px #000;
+}
+
+.site-footer p {
+  margin: 0.12rem 0;
+}
+
 .game-window {
   position: relative;
   overflow: hidden;
@@ -526,13 +541,55 @@ mdui-menu-item {
 
 @media (max-width: 640px) {
   .game-titlebar {
-    align-items: flex-start;
-    flex-direction: column;
+    min-height: 3.75rem;
+    align-items: center;
+    flex-direction: row;
+    gap: 0.7rem;
+    padding: 0.68rem 0.78rem 0.72rem;
+  }
+
+  .game-titlebar h1 {
+    max-width: calc(100vw - 6.5rem);
+    font-size: clamp(1.45rem, 7vw, 1.9rem);
+    line-height: 1.05;
   }
 
   .title-actions {
-    width: 100%;
+    width: auto;
+    margin-left: auto;
     justify-content: flex-end;
+  }
+
+  .language-trigger,
+  .language-trigger::part(button) {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .language-trigger::part(icon),
+  .language-trigger mdui-icon-translate {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .duty-card {
+    min-height: auto;
+    padding: 3.35rem 1rem 1.55rem;
+  }
+
+  .campaign-crystal {
+    top: 0.9rem;
+  }
+
+  .duty-card h2 {
+    height: auto;
+    margin: 0 0.8rem 1.55rem;
+    font-size: clamp(1.35rem, 6vw, 1.7rem);
+  }
+
+  .campaign-image {
+    width: 100%;
+    margin-bottom: 0.45rem;
   }
 
   .game-content {
@@ -541,5 +598,17 @@ mdui-menu-item {
 
   .quick-info {
     width: 100%;
+  }
+
+  .site-footer {
+    margin-top: 0.55rem;
+    padding: 0 0.8rem;
+    font-size: 0.64rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .game-titlebar h1 {
+    font-size: clamp(1.34rem, 6.6vw, 1.58rem);
   }
 }

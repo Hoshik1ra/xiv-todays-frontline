@@ -255,6 +255,11 @@ export default defineComponent(() => {
             </aside>
           </div>
         </div>
+        <footer class="site-footer mx-auto w-full max-w-5xl" aria-label={t("legal.label")}>
+          <p>{t("legal.line1")}</p>
+          <p>{t("legal.line2")}</p>
+          <p>{t("legal.copyright")}</p>
+        </footer>
       </section>
     </main>
   );
